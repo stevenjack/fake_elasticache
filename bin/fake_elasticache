@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require "pathname"
+
+root     = Pathname.new(__FILE__).dirname.parent
+lib_path = (root + "lib").realdirpath
+$LOAD_PATH.unshift(lib_path)
+
+require "fake_elasticache"
+
+FakeElasticache.run!
