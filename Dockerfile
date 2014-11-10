@@ -1,14 +1,14 @@
-FROM stackbrew/ubuntu:saucy
+FROM ruby:2.1.4
 MAINTAINER Steven Jack <stevenmajack@gmail.com>
 
-RUN apt-get -y update
-
-RUN apt-get -y install ruby ruby-dev build-essential
-RUN gem install fake_elasticache
+RUN bundle config --global frozen 1
+WORKDIR /usr/src/app
+ADD . /usr/src/app
+RUN bundle install
 
 EXPOSE 11212
 
 ENV CONTAINER true
 ENV FAKEELASTICACHE_BIND 0.0.0.0
 
-ENTRYPOINT fake_elasticache
+ENTRYPOINT bin/fake_elasticache
